@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+
+    php:
+        build:
+            context: .
+            target: local
+            args:
+                UID: 1000
+                USER: local
+        restart: on-failure
+        volumes:
+            - ./:/app/
+            - ./.docker/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
+            - app_home:/home/developer
+        working_dir: /app
+        ports:
+            - "9501:9501"
+        tty: true
+        networks:
+            devapp:
+
+networks:
+    devapp:
+        name: devapp
+
+volumes:
+    app_home:
