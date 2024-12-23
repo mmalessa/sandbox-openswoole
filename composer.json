@@ -1,12 +1,13 @@
 {
     "type": "project",
     "license": "proprietary",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "mmalessa/hermes-bundle": "*",
         "openswoole/core": "22.1.5",
         "swoole-bundle/swoole-bundle": "v0.22.1",
         "symfony/console": "7.1.*",
@@ -14,8 +15,14 @@
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.1.*",
         "symfony/runtime": "7.1.*",
-        "symfony/yaml": "7.1.*"
+        "symfony/yaml": "7.*"
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "mmalessa/hermes-bundle"
+        }
+    ],
     "config": {
         "allow-plugins": {
             "php-http/discovery": true,

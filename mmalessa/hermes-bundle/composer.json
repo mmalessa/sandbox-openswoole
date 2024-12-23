@@ -1,0 +1,24 @@
+{
+  "name": "mmalessa/hermes-bundle",
+  "type": "symfony-bundle",
+  "description": "Hermes bundle",
+  "keywords": [
+    "hermes"
+  ],
+  "homepage": "https://github.com/mmalessa/hermes",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marcin Malessa",
+      "homepage": "https://github.com/mmalessa/"
+    }
+  ],
+  "require": {
+    "php": ">=8.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mmalessa\\Hermes\\": "src/"
+    }
+  }
+}

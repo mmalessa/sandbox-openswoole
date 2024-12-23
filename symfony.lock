@@ -1,4 +1,7 @@
 {
+    "mmalessa/hermes-bundle": {
+        "version": "dev-main"
+    },
     "symfony/console": {
         "version": "7.1",
         "recipe": {
