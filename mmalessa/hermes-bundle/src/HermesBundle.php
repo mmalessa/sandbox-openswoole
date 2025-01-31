@@ -32,7 +32,7 @@ class HermesBundle extends AbstractBundle
     public function build(ContainerBuilder $container): void
     {
 
-        echo "############# Build\n";
+//        echo "############# Build\n";
 
 //        echo "############# Load config services.yaml\n";
 //        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/Resources/config'));

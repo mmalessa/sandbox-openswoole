@@ -1,2 +1,10 @@
 hermes:
-
+    receivers:
+        my_http_receiver:
+            type: http
+            options:
+                host: '0.0.0.0'
+                port: 80
+                mode: pool
+                settings:
+                    worker_num: 2

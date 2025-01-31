@@ -17,6 +17,7 @@ services:
         working_dir: /app
         ports:
             - "9501:9501"
+            - "80:80"
         tty: true
         networks:
             devapp:

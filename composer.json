@@ -9,11 +9,13 @@
         "ext-iconv": "*",
         "mmalessa/hermes-bundle": "*",
         "openswoole/core": "22.1.5",
+        "openswoole/ide-helper": "^22.1",
         "swoole-bundle/swoole-bundle": "v0.22.1",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.1.*",
+        "symfony/monolog-bundle": "^3.10",
         "symfony/runtime": "7.1.*",
         "symfony/yaml": "7.*"
     },

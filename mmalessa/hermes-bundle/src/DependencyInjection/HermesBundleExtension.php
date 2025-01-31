@@ -19,13 +19,14 @@ class HermesBundleExtension extends Extension
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        echo "############# HermesBundleExtension::load\n";
+//        echo "############# HermesBundleExtension::load\n";
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
 
         $configuration = new Configuration();
         $processor = new Processor();
         $config = $processor->processConfiguration($configuration, $configs);
+        $container->setParameter('hermes.configuration', $config);
 
 //        $container->setParameter('hermes.api_url', $config['api_url']);
 //        $container->setParameter('hermes.api_key', $config['api_key']);
