@@ -1,7 +1,7 @@
 services:
-    App\UI\:
-        resource: '%kernel.project_dir%/src/UI/*Command.php'
-        autoconfigure: true
-        bind:
-            $logger: '@monolog.logger.hermes'
-            $hermesConfiguration: '%hermes.configuration%'
+#    App\UI\:
+#        resource: '%kernel.project_dir%/src/UI/*Command.php'
+#        autoconfigure: true
+#        bind:
+#            $logger: '@monolog.logger.hermes'
+#            $hermesConfiguration: '%hermes.configuration%'

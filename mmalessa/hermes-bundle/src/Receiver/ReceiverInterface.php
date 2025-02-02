@@ -6,5 +6,5 @@ namespace Mmalessa\Hermes\Receiver;
 
 interface ReceiverInterface
 {
-
+    public function receive(): void;
 }

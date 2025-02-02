@@ -1,3 +1,11 @@
 services:
-    hermes.receivers:
-        class: Mmalessa\Hermes\Receiver\Receivers
+#    hermes.receivers:
+#        class: Mmalessa\Hermes\Receiver\Receivers
+
+    Mmalessa\Hermes\Console\:
+        resource: '../../Console/*'
+        tags: ['console.command']
+        autoconfigure: true
+        bind:
+            $logger: '@monolog.logger.hermes'
+            $hermesConfiguration: '%hermes.configuration%'

@@ -15,7 +15,7 @@ class HttpReceiver implements ReceiverInterface
         private readonly Options $options,
     ) {}
 
-    public function runServer()
+    public function receive(): void
     {
         $server = new Server(
             $this->options->host,
