@@ -1,6 +1,8 @@
 services:
-#    hermes.receivers:
-#        class: Mmalessa\Hermes\Receiver\Receivers
+    Mmalessa\Hermes\Receiver\HttpReceiver\HttpReceiverFactory:
+        tags: ['hermes.receiver_factory']
+    Mmalessa\Hermes\Receiver\KafkaReceiver\KafkaReceiverFactory:
+        tags: ['hermes.receiver_factory']
 
     Mmalessa\Hermes\Console\:
         resource: '../../Console/*'
@@ -8,4 +10,6 @@ services:
         autoconfigure: true
         bind:
             $logger: '@monolog.logger.hermes'
-            $hermesConfiguration: '%hermes.configuration%'
+#            $hermesConfiguration: '%hermes.configuration%'
+#            $container: '@service_container' # FIXME - do it better
+#            $receiver: '@hermes.receiver.my_http_receiver'

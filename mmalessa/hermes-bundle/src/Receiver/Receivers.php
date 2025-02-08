@@ -14,6 +14,6 @@ class Receivers
     }
 
     public function debug(): void{
-        var_dump($this->receivers);
+//        var_dump($this->receivers);
     }
 }

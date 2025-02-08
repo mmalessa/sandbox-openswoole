@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mmalessa\Hermes;
 
+use App\Application\IncomingMessageHandler;
 use InvalidArgumentException;
 use OpenSwoole\Server;
 
@@ -16,7 +17,6 @@ class Options
     public int $port = 80;
     public int $mode = Server::SIMPLE_MODE;
     public array $settings = [];
-
 
     public static function createFromArray(array $options): self
     {

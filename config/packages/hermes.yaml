@@ -1,7 +1,14 @@
+services:
+    app.incoming_message_handler:
+        class: 'App\Application\IncomingMessageHandler'
+        arguments:
+            $test: 'zosia'
+
 hermes:
     receivers:
         my_http_receiver:
             type: http
+            handler: 'app.incoming_message_handler'
             options:
                 host: '0.0.0.0'
                 port: 80
