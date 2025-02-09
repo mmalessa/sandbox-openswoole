@@ -10,6 +10,7 @@ services:
         autoconfigure: true
         bind:
             $logger: '@monolog.logger.hermes'
+            $container: '@service_container'
 #            $hermesConfiguration: '%hermes.configuration%'
 #            $container: '@service_container' # FIXME - do it better
 #            $receiver: '@hermes.receiver.my_http_receiver'

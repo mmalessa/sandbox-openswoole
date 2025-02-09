@@ -19,7 +19,7 @@ class HermesBundleExtension extends Extension
         return 'hermes';
     }
 
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         echo "HermesBundleExtension:load()\n";
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));

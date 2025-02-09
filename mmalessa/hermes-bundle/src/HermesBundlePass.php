@@ -34,8 +34,9 @@ class HermesBundlePass implements CompilerPassInterface
         }
 
         // Receivers
-        $receivers = $configuration['receivers'];
-        foreach ($receivers as $receiverName => $receiverConfig) {
+        $configurationReceivers = $configuration['receivers'];
+        $receivers = [];
+        foreach ($configurationReceivers as $receiverName => $receiverConfig) {
             $type = $receiverConfig['type'];
             $options = $receiverConfig['options'];
             $handlerServiceId = $receiverConfig['handler'];
@@ -47,7 +48,9 @@ class HermesBundlePass implements CompilerPassInterface
             $receiverDefinition->setFactory([new Reference($receiverFactoryClassName), 'create']);
             $receiverDefinition->setArguments([$receiverName, $options]);
             $receiverDefinition->addMethodCall('setHandler', [new Reference($handlerServiceId)]);
-            $container->setDefinition(sprintf('hermes.receiver.%s', $receiverName), $receiverDefinition);
+            $receiverDefinition->setPublic(true);
+            $serviceId = sprintf('hermes.receiver.%s', $receiverName);
+            $container->setDefinition($serviceId, $receiverDefinition);
         }
     }
 }

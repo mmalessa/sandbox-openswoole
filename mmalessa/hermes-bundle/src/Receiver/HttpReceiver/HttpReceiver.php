@@ -20,13 +20,20 @@ class HttpReceiver implements ReceiverInterface
 
     public function receive(): void
     {
+        $serverMode = match (gettype($this->options['mode'])) {
+            'integer' => (int) $this->options['mode'],
+            'string' => match ($this->options['mode']) {
+                'simple' => 1,
+                'pool' => 2,
+            }
+        };
+
         $server = new Server(
             $this->options['host'],
             $this->options['port'],
-            $this->options['mode']
+            $serverMode,
         );
         $server->set($this->options['settings']);
-
 
         $server->on('Request', function(Request $request, Response $response)
         {

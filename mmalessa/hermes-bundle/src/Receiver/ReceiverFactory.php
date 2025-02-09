@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Mmalessa\Hermes\Receiver;
 
 use InvalidArgumentException;
-use Mmalessa\Hermes\Options;
 use Mmalessa\Hermes\Receiver\HttpReceiver\HttpReceiver;
+use Mmalessa\Hermes\Receiver\HttpReceiver\HttpOptions;
 
 class ReceiverFactory
 {
-    public static function create(string $type, Options $options): ReceiverInterface
+    public static function create(string $type, HttpOptions $options): ReceiverInterface
     {
         $receiverClassName = self::getReceiverClassName($type);
         return new $receiverClassName($options);

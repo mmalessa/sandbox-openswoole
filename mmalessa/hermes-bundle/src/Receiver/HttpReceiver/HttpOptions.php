@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mmalessa\Hermes;
+namespace Mmalessa\Hermes\Receiver\HttpReceiver;
 
-use App\Application\IncomingMessageHandler;
 use InvalidArgumentException;
 use OpenSwoole\Server;
 
-class Options
+class HttpOptions
 {
     public const SIMPLE_MODE = 'simple';
     public const POOL_MODE = 'pool';
