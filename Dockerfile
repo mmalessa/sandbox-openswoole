@@ -17,7 +17,7 @@ RUN pecl config-set php_ini /usr/local/etc/php/conf.d/over.ini
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin
 RUN set -eux; \
-    install-php-extensions zip pcntl intl bcmath pdo pdo_pgsql rdkafka ds sockets \
+    install-php-extensions zip pcntl intl bcmath openswoole-22.1.2  pdo pdo_pgsql rdkafka ds sockets \
     && rm -rf /tmp/*
 
 USER ${APP_USER_NAME}

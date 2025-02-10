@@ -31,6 +31,11 @@ services:
             - postgres_db:/var/lib/postgresql/data
         ports:
             - "5432:5432"
+#        healthcheck:
+#            test: [ "CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}" ]
+#            timeout: 5s
+#            retries: 5
+#            start_period: 60s
         networks:
             devapp:
 
@@ -101,6 +106,8 @@ services:
 #            - 8085:8085
 #        networks:
 #            devapp:
+
+###> doctrine/doctrine-bundle ###
 
 networks:
     devapp:
