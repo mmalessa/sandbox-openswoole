@@ -13,9 +13,10 @@ class IncomingMessageHandler implements IncomingMessageHandlerInterface
         private string $test
     ) {}
 
-    public function handle(string $body, array $stamps)
+    public function handle(string $body, array $headers): string
     {
-        echo "BODY: $body\n";
-        print_r($stamps);
+        printf("BODY: %s\n", $body);
+        printf("HEADERS: %s\n", json_encode($headers));
+        return 'OK';
     }
 }

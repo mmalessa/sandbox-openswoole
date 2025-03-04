@@ -36,8 +36,6 @@ class HermesReceiveCommand extends Command
     {
         $receiverName = $input->getArgument('receiver');
         $receiver = $this->container->get(sprintf('hermes.receiver.%s', $receiverName));
-
-//        print_r($receiver);
         $receiver->receive();
 
         return Command::SUCCESS;

@@ -9,6 +9,8 @@ use Mmalessa\Hermes\Receiver\ReceiverInterface;
 use OpenSwoole\Http\Request;
 use OpenSwoole\Http\Response;
 use OpenSwoole\Http\Server;
+use OpenSwoole\Server as OpenSwooleServer;
+use Psr\Log\LoggerInterface;
 
 class HttpReceiver implements ReceiverInterface
 {
@@ -16,6 +18,7 @@ class HttpReceiver implements ReceiverInterface
 
     public function __construct(
         private readonly array $options,
+        private readonly LoggerInterface $logger,
     ) {}
 
     public function receive(): void
@@ -23,8 +26,8 @@ class HttpReceiver implements ReceiverInterface
         $serverMode = match (gettype($this->options['mode'])) {
             'integer' => (int) $this->options['mode'],
             'string' => match ($this->options['mode']) {
-                'simple' => 1,
-                'pool' => 2,
+                'simple' => OpenSwooleServer::SIMPLE_MODE,
+                'pool' => OpenSwooleServer::POOL_MODE,
             }
         };
 
@@ -38,19 +41,13 @@ class HttpReceiver implements ReceiverInterface
         $server->on('Request', function(Request $request, Response $response)
         {
             if ($this->incommingMessageHandler === null) {
-                printf("NO HANDLER - GET: %s\n", json_encode($request->get));
-                $response->end("NO HANDLER");
+                $message = "No handler set";
+                $this->logger->critical($message);
+                $response->status(500);
+                $response->end($message);
+                return false;
             }
-            printf("GET AND HANDLE: %s\n", json_encode($request->get));
-
-            // FIXME - add try/catch and so on...
-            $this->incommingMessageHandler->handle('some body', ['key' => 'value']);
-
-            $response->end('HANDLED');
-        });
-
-        $server->on('WorkerStart', function (Server $server, int $workerId) {
-            printf("Worker#%d start\n", $workerId);
+            return $this->handleRequest($request, $response);
         });
 
         $server->on('Start', function (Server $server) {
@@ -61,9 +58,13 @@ class HttpReceiver implements ReceiverInterface
             printf("Server %s:%d shutdown\n", $server->host, $server->port);
         });
 
-        $server->on('WorkerStop', function (Server $server, int $workerId) {
-            printf("Worker #%d shutdown\n", $workerId);
-        });
+//        $server->on('WorkerStart', function (Server $server, int $workerId) {
+//            printf("Worker#%d start\n", $workerId);
+//        });
+//
+//        $server->on('WorkerStop', function (Server $server, int $workerId) {
+//            printf("Worker #%d shutdown\n", $workerId);
+//        });
 
         $server->start();
     }
@@ -71,5 +72,18 @@ class HttpReceiver implements ReceiverInterface
     public function setHandler(IncomingMessageHandlerInterface $handler): void
     {
         $this->incommingMessageHandler = $handler;
+    }
+
+    private function handleRequest(Request $request, Response $response): bool
+    {
+        printf("HANDLE HTTP REQUEST: %s\n", json_encode($request->get));
+        // FIXME - add try/catch and so on...
+        // TODO handle all types - POST, GET, DELETE...
+        $result = $this->incommingMessageHandler->handle(
+            $request->getContent(),
+            $request->header,
+        );
+        $response->end($result);
+        return true;
     }
 }

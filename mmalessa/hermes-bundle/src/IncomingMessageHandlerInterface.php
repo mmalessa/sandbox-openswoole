@@ -6,5 +6,5 @@ namespace Mmalessa\Hermes;
 
 interface IncomingMessageHandlerInterface
 {
-    public function handle(string $body, array $stamps);
+    public function handle(string $body, array $headers): string;
 }
