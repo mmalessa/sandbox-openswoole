@@ -2,7 +2,7 @@ services:
     app.incoming_message_handler:
         class: 'App\Application\IncomingMessageHandler'
         arguments:
-            $test: 'zosia'
+            $logger: '@monolog.logger.my_application'
 
 hermes:
     receivers:
@@ -14,4 +14,4 @@ hermes:
                 port: 80
                 mode: simple # simple | pool
                 settings:
-                    worker_num: 2
+                    worker_num: 1

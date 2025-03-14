@@ -51,11 +51,11 @@ class HttpReceiver implements ReceiverInterface
         });
 
         $server->on('Start', function (Server $server) {
-            printf("Server %s:%d start\n", $server->host, $server->port);
+            $this->logger->info(sprintf("Server %s:%d start\n", $server->host, $server->port));
         });
 
         $server->on('Shutdown', function (Server $server) {
-            printf("Server %s:%d shutdown\n", $server->host, $server->port);
+            $this->logger->info(sprintf("Server %s:%d shutdown\n", $server->host, $server->port));
         });
 
 //        $server->on('WorkerStart', function (Server $server, int $workerId) {
@@ -76,13 +76,22 @@ class HttpReceiver implements ReceiverInterface
 
     private function handleRequest(Request $request, Response $response): bool
     {
-        printf("HANDLE HTTP REQUEST: %s\n", json_encode($request->get));
+        $this->logger->info(
+            "Handle HTTP Request",
+            [
+                'path' => $request->server['request_uri'],
+                'method' => $request->server['request_method'],
+                'headers' => $request->header,
+                'body' => $request->getContent(),
+            ]
+        );
         // FIXME - add try/catch and so on...
         // TODO handle all types - POST, GET, DELETE...
         $result = $this->incommingMessageHandler->handle(
             $request->getContent(),
             $request->header,
         );
+        $this->logger->info("HTTP Request handled");
         $response->end($result);
         return true;
     }

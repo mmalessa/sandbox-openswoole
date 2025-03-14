@@ -1,7 +1,8 @@
 monolog:
     channels:
         - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
-        - hermes
+        - my_application
+        - hermes # TODO - move to bundle
 
 when@dev:
     monolog:

@@ -5,3 +5,15 @@ services:
 #        bind:
 #            $logger: '@monolog.logger.hermes'
 #            $hermesConfiguration: '%hermes.configuration%'
+
+
+when@dev:
+    services:
+        App\Tests\Manual\Console\:
+            resource: '%kernel.project_dir%/tests/Manual/Console/*Command.php'
+            autoconfigure: true
+            autowire: false
+            bind:
+                $hermesApiUrl: 'http://localhost:80/'
+                $httpClient: '@http_client'
+

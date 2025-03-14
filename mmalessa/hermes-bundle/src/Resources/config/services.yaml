@@ -1,6 +1,9 @@
 services:
     Mmalessa\Hermes\Receiver\HttpReceiver\HttpReceiverFactory:
         tags: ['hermes.receiver_factory']
+        arguments:
+            $logger: '@monolog.logger.hermes'
+
     Mmalessa\Hermes\Receiver\KafkaReceiver\KafkaReceiverFactory:
         tags: ['hermes.receiver_factory']
 
@@ -11,6 +14,3 @@ services:
         bind:
             $logger: '@monolog.logger.hermes'
             $container: '@service_container'
-#            $hermesConfiguration: '%hermes.configuration%'
-#            $container: '@service_container' # FIXME - do it better
-#            $receiver: '@hermes.receiver.my_http_receiver'

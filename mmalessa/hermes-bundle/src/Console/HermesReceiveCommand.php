@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mmalessa\Hermes\Console;
 
+use OpenSwoole\Http\Server;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -17,23 +18,22 @@ class HermesReceiveCommand extends Command
 {
     public function __construct(
         private readonly LoggerInterface $logger,
-//        private readonly array $hermesConfiguration,
         private readonly ContainerInterface $container,
-//        private readonly ReceiverInterface $receiver,
     ) {
         parent::__construct();
     }
 
     protected function configure()
     {
-        $this
-            ->addArgument('receiver', InputArgument::REQUIRED, 'Receiver name')
-        ;
+        $this->addArgument('receiver', InputArgument::REQUIRED, 'Receiver name');
         parent::configure();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // TODO - handle Ctrl+C
+
+        $this->logger->info("START");
         $receiverName = $input->getArgument('receiver');
         $receiver = $this->container->get(sprintf('hermes.receiver.%s', $receiverName));
         $receiver->receive();
